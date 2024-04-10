@@ -2,7 +2,8 @@
 
 Projeto desenvolvido durante a cadeira de Engenharia de Software, ofertada pelo curso de BCC(Bacharelado em Ciência da Computação) da UFRPE.
 
-**Docente**: Ana Paula Furtado Cliente: Robson Medeiros
+**Docente**: Ana Paula Furtado
+**Cliente**: Robson Medeiros
 
 **Integrantes do Grupo**: Arthur Lira, Guilherme Beltrão, Lucas Aurélio, Marcela Hadassa, Marcio Filho, Nicholas Camargo
 
