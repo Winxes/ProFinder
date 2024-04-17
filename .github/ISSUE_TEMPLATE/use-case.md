@@ -2,7 +2,7 @@
 name: Use Case
 about: Descreve as interações entre os atores e o sistema
 title: "[Use Case]"
-labels: use-case
+labels: use-case, user-story
 assignees: ''
 
 ---
