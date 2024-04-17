@@ -26,11 +26,11 @@ O estado do software depois do caso ser finalizado. Ex.: Pedido fechado; Compra 
 O caminho "feliz" de um caso executado com sucesso. 
 Ex.: 
 1 - Cliente clica em finalizar compra, sistema pede forma de pagamento e entrega;
-1 - Cliente escolhe pagamento em cartão;
-1 - Sistema solicita dados do cartão;
-1 - Sistema valida os dados;
-1- Sistema gera número do pedido;
-1 - Compra finalizada
+2 - Cliente escolhe pagamento em cartão;
+3 - Sistema solicita dados do cartão;
+4 - Sistema valida os dados;
+5- Sistema gera número do pedido;
+6 - Compra finalizada
 
 **Fluxo Alternativo:**
 Outra possibilidade de caminho. 
