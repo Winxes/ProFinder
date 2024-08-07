@@ -16,16 +16,13 @@ Projeto desenvolvido durante a cadeira de Engenharia de Software, ofertada pelo 
  
 ##   <img align="center" alt="mzn-react" height="60" width="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/networkx/networkx-plain.svg" /> Tecnologias Utilizadas
 
- <img align="center" alt="mzn-react" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"/> `ReactJS  v18.2.0`
+ <img align="center" alt="mzn-react" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original-wordmark.svg"/> `VueJS  v18.2.0`
 <br>
 
- <img align="center" alt="mzn-nodejs" height="40" width="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg"> `NodeJS v20.12.0`
+ <img align="center" alt="mzn-nodejs" height="40" width="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg"> `Laravel v20.12.0`
  <br>
  
-<img align="center" alt="mzn-react" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg"/> `ExpressJS `
-<br>
-
-<img align="center" alt="mzn-nodejs" height="40" width="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mariadb/mariadb-original-wordmark.svg"/> `MariaDB`
+<img align="center" alt="mzn-nodejs" height="40" width="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"/> `MySQL`
           
          
           
