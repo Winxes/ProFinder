@@ -42,9 +42,9 @@ const submit = () => {
         </div>
 
         <h1 class="text-4xl font-bold pt-16 pb-4 pl-2 pr-6">Entrar</h1>
-        <p class="text-gray-600 pt-4 pb-4 pl-2 pr-6">rolas grossa peludas, veiudas e pulsantes</p>
+        <p class="text-gray-600 pt-4 pb-4 pl-2 pr-6">É bom ter você de volta! Insira seus dados</p>
         <form @submit.prevent="submit">
-            <div>
+            <div class="w-full sm:w-[300px] mt-4">
                 <InputLabel for="email" value="Email" />
                 <TextInput
                     id="email"
@@ -58,7 +58,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="mt-4">
+            <div class="w-full sm:w-[300px] mt-4 mr-12  ">
                 <InputLabel for="password" value="Password" />
                 <TextInput
                     id="password"
@@ -85,7 +85,6 @@ const submit = () => {
                     Esqueceu a senha?
                 </Link>
             </div>
-            <br>
             <div class="flex items-center justify-end mt-4">
 
 
