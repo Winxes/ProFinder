@@ -49,17 +49,17 @@ const scholarshipType = ref('');
             <div class="mt-6">
                 <div>
                     <label for="title" class="text-md font-medium">Título</label>
-                    <input
-                        class="w-full bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100"
-                        type="text" id="title" placeholder="Escreva o título da sua publicação" />
+                    <input class="w-full bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100" type="text" id="title" placeholder="Escreva o título da sua publicação"/>
                 </div>
                 <div class="mt-6">
                     <label for="content" class="text-md font-medium">Descrição</label>
                     <textarea
                         class="w-full resize-none h-32 bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100"
-                        id="content" placeholder="Descreva o seu projeto..."></textarea>
+                        id="content" placeholder="Descreva o seu projeto...">
+                    </textarea>
                 </div>
                 <div class="mt-6">
+
                     <label class="block font-medium mb-2">Tipo de Bolsa</label>
                     <div class="flex space-x-4">
                         <label class="inline-flex items-center">
@@ -77,20 +77,30 @@ const scholarshipType = ref('');
                         <VueMultiselect v-model="selected" :options="options" :multiple="true" label="name"
                             track-by="name" placeholder="Selecione suas habilidades" />
                     </div>
+
                 </div>
             </div>
             <div class="flex justify-start mt-6 space-x-4">
                 <button class="flex items-center focus:outline-none hover:bg-gray-100">
-                    <img src="images/Images.png" alt="Mídia" class="w-6 h-6 mr-2" /> Mídia
+                    <img src="images/Images.png" alt="Mídia" class="w-6 h-6 mr-2" /> 
+                    Mídia
                 </button>
+                
                 <button class="flex items-center focus:outline-none rounded-md hover:bg-gray-100">
-                    <img src="images/FilePlus.png" alt="Documentos" class="w-6 h-6 mr-2 ml-4" /> Documentos
+                    <img src="images/FilePlus.png" alt="Documentos" class="w-6 h-6 mr-2 ml-4" /> 
+                    Documentos
                 </button>
+
             </div>
+
             <div class="flex justify-between mt-6">
                 <div class="flex space-x-4 ml-auto">
+
                     <button @click="handlePublish"
-                        class="bg-button text-white rounded-lg px-4 py-2 hover:bg-[#9F214E]">Publicar</button>
+                        class="bg-button text-white rounded-lg px-4 py-2 hover:bg-[#9F214E]">
+                        Publicar
+                    </button>
+
                 </div>
             </div>
         </div>

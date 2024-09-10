@@ -22,4 +22,6 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::resource('posts', App\Http\Controllers\PostController::class)->except('create')->name('posts');
+    Route::resource('tags', App\Http\Controllers\TagController::class)->name('tags');
 });
