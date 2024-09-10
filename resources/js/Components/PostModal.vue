@@ -32,6 +32,9 @@ const options = ref([
     { name: 'Administração' },
     { name: 'Engenharia' }
 ]);
+
+// Controlar a seleção entre "Remunerada" ou "Voluntária"
+const scholarshipType = ref('');
 </script>
 
 <template>
@@ -53,18 +56,18 @@ const options = ref([
                 <div class="mt-6">
                     <label for="content" class="text-md font-medium">Descrição</label>
                     <textarea
-                        class="w-full h-32 bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100"
+                        class="w-full resize-none h-32 bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100"
                         id="content" placeholder="Descreva o seu projeto..."></textarea>
                 </div>
                 <div class="mt-6">
                     <label class="block font-medium mb-2">Tipo de Bolsa</label>
                     <div class="flex space-x-4">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" />
+                            <input type="radio" class="form-radio" value="Remunerada" v-model="scholarshipType" />
                             <span class="ml-2">Remunerada</span>
                         </label>
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" />
+                            <input type="radio" class="form-radio" value="Voluntária" v-model="scholarshipType" />
                             <span class="ml-2">Voluntária</span>
                         </label>
                     </div>

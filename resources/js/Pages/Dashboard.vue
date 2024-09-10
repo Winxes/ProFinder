@@ -56,22 +56,19 @@ const closeSettingsModal = () => {
           <div
             class="flex justify-between items-center mt-8 w-4/5 sm:px-6 lg:px-4 md:px-0 bg-gray-100 p-4 rounded-xl shadow-shape mx-auto">
             <!-- icon -->
-            <div class="flex flex-row w-full mx-6">
+            <div class="flex flex-row w-full mx-6 items-center">
               <img src="https://avatars.githubusercontent.com/u/135720339?v=4" alt="Avatar"
                 class="rounded-full w-12 h-12 object-cover mr-4" />
-
-              <!-- input para abrir o modal -->
-              <input
-                class="flex-grow w-4/5 bg-white border border-gray-300 rounded-full py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-primaria"
-                type="text" placeholder="Crie uma nova publicação" @click="openPostModal" />
+              <!-- button para abrir o modal -->
+              <button
+                class="flex-1 bg-white border border-gray-300 rounded-full py-2 px-4 text-gray-600 text-left hover:bg-zinc-50"
+                type="button" @click="openPostModal">Escreva sua publicação</button>
             </div>
           </div>
 
           <!-- seção de posts -->
           <div>
-            <div class="flex justify-center items-center mt-20">
-              <PostCard />
-            </div>
+           
           </div>
 
           <div>
