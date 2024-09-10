@@ -54,7 +54,7 @@ class PostController extends Controller
             'tags' => $request->tags,
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+        return redirect()->route('dashboard')->with('success', 'Post created successfully.');
     }
 
     /**
