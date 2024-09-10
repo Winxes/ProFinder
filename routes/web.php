@@ -21,4 +21,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+    Route::get('/user/{user_id}', function ($user_id) {
+        return Inertia::render('User', ['user_id' => $user_id]);
+    })->name('user');
 });
