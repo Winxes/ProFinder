@@ -1,42 +1,10 @@
-
-
-
-
-
 <script setup>
-    import { Link } from '@inertiajs/vue3';
-    import AppLayout from '@/Layouts/AppLayout.vue'
-
-
-    import { defineComponent } from 'vue'
-    defineComponent({
-        components: {
-            Link,
-            Nav
-        },
-        props: {
-            canLogin: {
-                type: Boolean,
-                default: true,
-            },
-            canRegister: {
-                type: Boolean,
-                default: true,
-            },
-            laravelVersion: {
-                type: String,
-                required: true,
-            },
-            phpVersion: {
-                type: String,
-                required: true,
-            },
-        },
-    })
-
+import AppLayout from '@/Layouts/AppLayout.vue';
+import Welcome from '@/Components/Welcome.vue';
 </script>
+
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Dashboard
