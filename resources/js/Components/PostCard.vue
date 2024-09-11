@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { PhBookmarks, PhChatCircle, PhHeartStraight } from '@phosphor-icons/vue';
 import { EllipsisVertical } from 'lucide-vue-next';
+import CommentModal from './CommentModal.vue';
+import PostSettingsModal from './PostSettingsModal.vue';
 
 // Definindo props
 const props = defineProps({
@@ -15,16 +17,36 @@ const props = defineProps({
     },
 });
 
+const isCommentModalOpen = ref(false);  // controle do modal de "Comentar"
+const isSettingsModalOpen = ref(false); // controle do modal de "Configurações de publicação"
+
+// Funções para abrir e fechar os modais
+const openCommentModal = () => {
+    isCommentModalOpen.value = true;
+};
+
+const closeCommentModal = () => {
+    isCommentModalOpen.value = false;
+};
+
+const openSettingsModal = () => {
+    isSettingsModalOpen.value = true;
+};
+
+const closeSettingsModal = () => {
+    isSettingsModalOpen.value = false;
+};
+
 // Variável que controla se o texto está expandido ou não
 const isExpanded = ref(false);
 
 // Alterna entre ler mais e ler menos
 const toggleExpand = () => {
     isExpanded.value = !isExpanded.value;
-
-    const tags = ref(['Tag 1', 'Tag 2']);
-
 };
+
+// Tags padrão
+const defaultTags = ref([]);
 </script>
 
 <template>
@@ -45,7 +67,7 @@ const toggleExpand = () => {
             </p>
             <!-- Botão de opções -->
             <div class="ml-auto mt-2">
-                <button type="button"
+                <button type="button" @click="openSettingsModal"
                     class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
                     <slot name="optionsIcon">
                         <EllipsisVertical class="w-6 h-6"></EllipsisVertical>
@@ -105,7 +127,7 @@ const toggleExpand = () => {
                 </div>
                 <!-- Botão de comentário -->
                 <div class="ml-6 mt-4">
-                    <button type="button"
+                    <button type="button" @click="openCommentModal"
                         class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
                         <slot name="commentIcon">
                             <PhChatCircle class="w-6 h-6"></PhChatCircle>
@@ -121,6 +143,11 @@ const toggleExpand = () => {
                         </slot>
                     </button>
                 </div>
+            
+                <!-- Modais -->
+                <CommentModal :isOpen="isCommentModalOpen" @closeModal="closeCommentModal" />
+                <PostSettingsModal :isOpen="isSettingsModalOpen" @closeModal="closeSettingsModal" />
+
             </div>
         </div>
     </div>

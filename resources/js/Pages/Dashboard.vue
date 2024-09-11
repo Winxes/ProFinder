@@ -8,7 +8,6 @@ import { PhSlidersHorizontal } from '@phosphor-icons/vue';
 
 // controle dos modais
 const isPostModalOpen = ref(false);   // controle do modal de "Fazer uma publicação"
-const isSettingsModalOpen = ref(false); // controle do modal de "Configurações de publicação"
 
 // funções para abrir e fechar o modal de publicação
 const openPostModal = () => {
@@ -20,16 +19,7 @@ const closePostModal = () => {
   isSettingsModalOpen.value = false;  // fecha o modal de configurações também
 };
 
-// funções para abrir e fechar o modal de configurações
-const openSettingsModal = () => {
-  if (isPostModalOpen.value) {
-    isSettingsModalOpen.value = true;  // só abre o segundo modal se o primeiro estiver aberto
-  }
-};
 
-const closeSettingsModal = () => {
-  isSettingsModalOpen.value = false;
-};
 </script>
 
 <template>
@@ -67,8 +57,8 @@ const closeSettingsModal = () => {
           </div>
 
           <!-- seção de posts -->
-          <div>
-           
+          <div class="flex justify-center items-center mt-20">
+            <PostCard />
           </div>
 
           <div>
