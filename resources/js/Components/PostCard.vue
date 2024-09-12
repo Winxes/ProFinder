@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { PhBookmarks, PhChatCircle, PhHeartStraight } from '@phosphor-icons/vue';
+import { PhBookmarks, PhChatCircle, PhHeartStraight, PhShareNetwork } from '@phosphor-icons/vue';
 import { EllipsisVertical } from 'lucide-vue-next';
 import CommentModal from './CommentModal.vue';
 import PostSettingsModal from './PostSettingsModal.vue';
