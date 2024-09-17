@@ -14,8 +14,15 @@
             >
                 Dashboard
             </Link>
-
+            
             <template v-else>
+                <!-- <Link
+                    :href="route('about')"
+                    class="text-xl shadow-sm rounded-md px-3 py-2 font-semibold text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-blue/80 dark:focus-visible:ring-grey"
+                >
+                    Sobre nós
+                </Link> -->
+                    
                 <Link
                     :href="route('login')"
                     class=" text-xl shadow-sm rounded-md px-3 font-semibold py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-blue/80 dark:focus-visible:ring-grey"
@@ -31,6 +38,7 @@
                     Register
                 </Link>
             </template>
+           
         </nav>
         </div>
         

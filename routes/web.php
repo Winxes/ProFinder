@@ -13,6 +13,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/about', function () {
+    return Inertia::render('About');
+})->name('about');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
