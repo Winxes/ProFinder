@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,3 +31,8 @@ Route::middleware([
         return Inertia::render('User', ['user_id' => $user_id]);
     })->name('user');
 });
+
+Route::resource('skills', SkillController::class);
+Route::get('/users/skill/{skill}', [UserController::class, 'filterBySkill'])->name('users.skill');
+Route::get('/users/{name}', [UserController::class, 'findByName'])->name('users.name');
+Route::post('/users/{user_id}/skills', [UserController::class, 'attachSkill'])->name('users.skills.store');
