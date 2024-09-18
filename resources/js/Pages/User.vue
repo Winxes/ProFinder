@@ -4,37 +4,133 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 
 <template>
     <AppLayout title="Perfil">
-        <div class="mother-box grid">
-            <div class="dad-box grid-rows-1 px-8 py-4">
-                <div class="mb-6 flex items-center space-x-4">
-                    <h1 class="font-semibold text-2xl text-center">Perfil</h1>
-                    <div class="flex-grow flex justify-end">
-                        <label for="input" class="block mb-2 text-sm font-medium"></label>
-                        <input type="text" id="large-input" class="block w-full sm:w-40 h-11 p-4 border border-gray-300 rounded-lg bg-gray-50 text-base">
-                    </div>
-                </div>
-            </div>
-            <div class="dad2-box grid-rows-2 px-8 py-4">
-                <div class="div-cape-image">
-                    <img :src="'images/capa-teste.jpeg'" alt="teste-capa" class="max-w-full h-auto"/>
-                </div>
+        <div class="bg-gray-100">
+            <div class="container mx-auto py-8">
+                <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+                    <div class="col-span-4 sm:col-span-3">
+                        <div class="bg-white shadow rounded-lg p-6">
+                            <div class="flex flex-col items-center">
+                                <img src="https://imageresizer.static9.net.au/ev1S-T4meHlhJywbSlPI1918CNg=/1200x1200/https%3A%2F%2Fprod.static9.net.au%2F_%2Fmedia%2F2017%2F08%2F06%2F05%2F10%2F170805_putin.jpg" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
 
-                <div class="div-profile flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4 text-center">
-                    <svg height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path d="M5.38846 12.7023C3.98522 12.1237 3 10.7636 3 9.17807C3 7.42863 4.3 5.8125 6.25 5.5C6.86168 4.0617 8.30934 3 9.9978 3C12.1607 3 13.9285 4.65893 14.05 6.75C14.8721 7.10549 15.5169 7.83126 15.8166 8.69914M5.38846 12.7023C4.50928 13.5938 4 14.7867 4 16.0315C4 18.7755 6.28335 21 9.1 21L16.75 21C19.0972 21 21 19.1279 21 16.8185C21 15.1039 19.951 13.5202 18.45 12.875C18.3457 11.0905 17.3135 9.5483 15.8166 8.69914M5.38846 12.7023C6.11557 11.9651 7.0957 11.4339 8.25 11.25C9.04989 9.3802 10.943 8 13.151 8C14.1227 8 15.0333 8.25474 15.8166 8.69914" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                    </svg>
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="flex flex-col items-center space-y-1">
-                            <h1 class="text-xl font-semibold">Gabriel Verme</h1>
-                            <p>@Belt</p>
+                                </img>
+                                <h1 class="text-xl font-bold">Gabriel Cisneiros</h1>
+                                <p class="text-gray-700">Front-End Sênior</p>
+                                <div class="mt-6 flex flex-wrap gap-4 justify-center">
+                                    <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Contato</a>
+                                    <a href="#" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Chat</a>
+                                </div>
+                            </div>
+                            <hr class="my-6 border-t border-gray-300">
+                            <div class="flex flex-col">
+                                <span class="text-gray-700 uppercase font-bold tracking-wider mb-2">Skills</span>
+                                <ul>
+                                    <li class="mb-2">XanaScript</li>
+                                    <li class="mb-2">React</li>
+                                    <li class="mb-2">Node.js</li>
+                                    <li class="mb-2">HTML/CSS</li>
+                                    <li class="mb-2">Peiton</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="flex flex-col space-y-1">
-                            <h2>GABRIEL CISNEIROS OLIVEIRA DA SILVA | AGEPLAYER</h2>
-                            <p>AISJDHBASIDUBSIDUSD@protonmail.me</p>
+                    </div>
+                    <div class="col-span-4 sm:col-span-9">
+                        <div class="bg-white shadow rounded-lg p-6">
+                            <h2 class="text-xl font-bold mb-4">Sobre mim</h2>
+                            <p class="text-gray-700">Amorr , quelia , tomar banho com vc agola , seria taumm bomm .. imagina morrr , eu e vc abraçadinhos , vc no meu kolinho , peladinhos , hum , a gente se beija , bjs em sua orelhinha , mordidinhas hummm , faço carinhos , em sua nuca , eu tiro teu sutiã, começo a te acariciar , teu seio , pego bem gostoso nele , xupadinhas , com mordidinhas , hmmm , q delícia amorrr .. Com uma outra mãozinha " boba " , vai descendo por teu corpo , ate chegar, em tua virilha , aii morrr , vc é d ++ , passo minha mão , na tua Glub , q delícia, lisinha , penetro um dedo , nela , toco em teu sininho , hummm .. vc com muito tezão , eu mais ainda rs ..Você da uma levantadinha , senta no meu trimm , duioo (?) , ai q gostoso ..
+
+
+                            </p>
+
+                            <h3 class="font-semibold text-center mt-3 -mb-2">
+                                Me encontre nas redes sociais
+                            </h3>
+                            <div class="flex justify-center items-center gap-6 my-6">
+                                <a class="text-gray-700 hover:text-orange-600" aria-label="Visit TrendyMinds LinkedIn" href=""
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6">
+                                        <path fill="currentColor"
+                                            d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a class="text-gray-700 hover:text-orange-600" aria-label="Visit TrendyMinds YouTube" href=""
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="h-6">
+                                        <path fill="currentColor"
+                                            d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a class="text-gray-700 hover:text-orange-600" aria-label="Visit TrendyMinds Facebook" href=""
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="h-6">
+                                        <path fill="currentColor"
+                                            d="m279.14 288 14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a class="text-gray-700 hover:text-orange-600" aria-label="Visit TrendyMinds Instagram" href=""
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6">
+                                        <path fill="currentColor"
+                                            d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a class="text-gray-700 hover:text-orange-600" aria-label="Visit TrendyMinds Twitter" href=""
+                                    target="_blank">
+                                    <svg class="h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path fill="currentColor"
+                                            d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+
+
+                            <h2 class="text-xl font-bold mt-6 mb-4">Experiência</h2>
+                            <div class="mb-6">
+                                <div class="flex justify-between flex-wrap gap-2 w-full">
+                                    <span class="text-gray-700 font-bold">Web Developer</span>
+                                    <p>
+                                        <span class="text-gray-700 mr-2">at ABC Company</span>
+                                        <span class="text-gray-700">2017 - 2019</span>
+                                    </p>
+                                </div>
+                                <p class="mt-2">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est vitae
+                                    tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas
+                                    suscipit.
+                                </p>
+                            </div>
+                            <div class="mb-6">
+                                <div class="flex justify-between flex-wrap gap-2 w-full">
+                                    <span class="text-gray-700 font-bold">Web Developer</span>
+                                    <p>
+                                        <span class="text-gray-700 mr-2">at ABC Company</span>
+                                        <span class="text-gray-700">2017 - 2019</span>
+                                    </p>
+                                </div>
+                                <p class="mt-2">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est vitae
+                                    tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas
+                                    suscipit.
+                                </p>
+                            </div>
+                            <div class="mb-6">
+                                <div class="flex justify-between flex-wrap gap-2 w-full">
+                                    <span class="text-gray-700 font-bold">Web Developer</span>
+                                    <p>
+                                        <span class="text-gray-700 mr-2">at ABC Company</span>
+                                        <span class="text-gray-700">2017 - 2019</span>
+                                    </p>
+                                </div>
+                                <p class="mt-2">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est vitae
+                                    tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas
+                                    suscipit.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
