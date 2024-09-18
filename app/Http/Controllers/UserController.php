@@ -78,10 +78,10 @@ class UserController extends Controller
         // request->skills should be array
         $user->skills()->attach($request->skills);
 
-        return response()->json($user);
+        return response()->json($user)->setStatusCode(201);
         
     }
-    public function filterByName($name) {
+    public function findByName($name) {
         $users = User::where('name','LIKE','%'. $name .'%')->get();
         
         return response()->json($users);
