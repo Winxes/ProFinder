@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,3 +24,6 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+Route::resource('skills', SkillController::class);
+Route::get('/users/skill/{skill}', [UserController::class, 'filterBySkill'])->name('users.skill');
