@@ -14,6 +14,8 @@ const closeModal = () => {
     emit('closeModal');
 };
 
+const csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+
 const handlePublish = () => {
     console.log('Título:', title.value);
     console.log('Conteúdo:', content.value);
@@ -24,7 +26,7 @@ const handlePublish = () => {
     const formData = new FormData();
     formData.append('title', title.value);
     formData.append('content', content.value);
-    formData.append('scholarshipType', scholarshipType.value);
+    formData.append('scholarship', scholarshipType.value);
     formData.append('selected', JSON.stringify(selected.value));
 
     if (mediaFiles.value.length > 0) {
@@ -33,16 +35,15 @@ const handlePublish = () => {
         });
     }
 
-    fetch('/api/publish', {
+    fetch('/posts', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json'
+        }
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Publicação enviada com sucesso:', data);
-        window.location.reload();
-    })
-    .catch(error => console.error('Erro ao publicar:', error));
+        .then(window.location.reload())
 };
 
 const title = ref('');

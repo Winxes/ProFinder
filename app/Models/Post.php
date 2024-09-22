@@ -13,7 +13,10 @@ class Post extends Model
         'title',
         'content',
         'photo_path',
-        'tags',
+        'likes',
+        'comments_count',
+        'user_id',
+        'scholarship',
     ];
 
     /**
