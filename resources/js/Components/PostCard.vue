@@ -4,7 +4,7 @@ import { ref, onMounted } from 'vue';
 const posts = ref([]);
 const fetchPosts = async () => {
     try {
-        const response = await fetch('http://localhost:8000/posts'); 
+        const response = await fetch('/posts'); 
         if (response.ok) {
             const data = await response.json();
             posts.value = data; 
