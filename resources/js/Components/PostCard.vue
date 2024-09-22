@@ -17,32 +17,56 @@ const props = defineProps({
     },
 });
 
-const isCommentModalOpen = ref(false);  // controle do modal de "Comentar"
-const isSettingsModalOpen = ref(false); // controle do modal de "Configurações de publicação"
+// Variáveis de controle dos modais
+const isCommentModalOpen = ref(false);
+const isSettingsModalOpen = ref(false);
 
 // Funções para abrir e fechar os modais
 const openCommentModal = () => {
     isCommentModalOpen.value = true;
 };
-
 const closeCommentModal = () => {
     isCommentModalOpen.value = false;
 };
-
 const openSettingsModal = () => {
     isSettingsModalOpen.value = true;
 };
-
 const closeSettingsModal = () => {
     isSettingsModalOpen.value = false;
 };
 
-// Variável que controla se o texto está expandido ou não
+
 const isExpanded = ref(false);
 
-// Alterna entre ler mais e ler menos
+// Alterna o estado do texto
 const toggleExpand = () => {
     isExpanded.value = !isExpanded.value;
+};
+
+
+const isLiked = ref(false); 
+const likeCount = ref(0); 
+
+// Função para alternar o "like"
+const toggleLike = async () => {
+    isLiked.value = !isLiked.value;
+    
+    if (isLiked.value) {
+        likeCount.value += 1;
+        await sendLikeToBackend();
+    } else {
+        likeCount.value -= 1;
+        await removeLikeFromBackend();
+    }
+};
+
+// Funções simulando chamadas ao backend
+const sendLikeToBackend = async () => {
+    console.log('Like enviado para o backend');
+};
+
+const removeLikeFromBackend = async () => {
+    console.log('Like removido do backend');
 };
 
 // Tags padrão
@@ -57,15 +81,12 @@ const defaultTags = ref([]);
             <slot name="authorIcon">
                 <img :src="props.authorIcon" alt="icon" class="rounded-full ml-2 mt-2 w-8 h-8 object-cover mr-4" />
             </slot>
-            <!-- Slot para o nome do autor -->
             <h2 class="mt-3 font-normal">
                 <slot name="authorName"></slot>
             </h2>
-            <!-- Slot para a data do post -->
             <p class="mt-4 px-6 font-normal text-xs">
                 <slot name="postDate"></slot>
             </p>
-            <!-- Botão de opções -->
             <div class="ml-auto mt-2">
                 <button type="button" @click="openSettingsModal"
                     class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
@@ -75,15 +96,12 @@ const defaultTags = ref([]);
                 </button>
             </div>
         </div>
-        <!-- Título do projeto -->
         <div class="flex flex-row mx-4">
             <h2 class="ml-2 mt-4 font-bold text-md">
                 <slot name="projectTitle"></slot>
             </h2>
         </div>
-        <!-- Descrição e imagem lado a lado -->
         <div class="flex flex-row mx-4 items-start">
-            <!-- Descrição com limite de altura e botão 'ler mais' -->
             <div class="w-3/5">
                 <slot name="description">
                     <p class="text-justify mx-4 ml-2" :class="isExpanded ? '' : 'line-clamp-3 overflow-hidden'">
@@ -94,19 +112,16 @@ const defaultTags = ref([]);
                     {{ isExpanded ? 'Ler menos' : 'Ler mais' }}
                 </button>
             </div>
-            <!-- Imagem do projeto -->
             <div class="w-2/5">
                 <slot name="projectImage">
-                    <img :src="props.projectImage || 'https://example.com/default-image.jpg'" alt="project-image"
+                    <img :src="props.projectImage || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgDLFcUCIsxkeQUX1ZTm55Xue9jtpHbFNpWw&s'" alt="project-image"
                         class="mr-4 w-full h-auto object-cover rounded-xl" />
                 </slot>
             </div>
         </div>
-        <!-- Tags, like, comentário e salvar -->
         <div class="flex items-center">
             <div class="flex text-center items-center mt-4">
                 <slot name="tags">
-                    <!-- Conteúdo padrão caso o slot não seja fornecido -->
                     <div class="flex text-center items-center mt-4">
                         <button v-for="(tag, index) in defaultTags" :key="index" type="button"
                             class="ml-2 mb-3 px-3 text-sm shadow-shape rounded-xl hover:bg-zinc-200">
@@ -116,16 +131,17 @@ const defaultTags = ref([]);
                 </slot>
             </div>
             <div class="flex">
-                <!-- Botão de like -->
-                <div class="ml-6 mt-4">
-                    <button type="button"
+                <div class="ml-6 mt-4 flex items-center">
+                    <button type="button" @click="toggleLike"
+                        :class="isLiked ? 'text-red-500' : 'text-black'"
                         class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
                         <slot name="likeIcon">
                             <PhHeartStraight class="w-6 h-6"></PhHeartStraight>
                         </slot>
                     </button>
+                    <!-- Exibindo a quantidade de likes -->
+                    <span class="ml-2 text-gray-500">{{ likeCount }}</span>
                 </div>
-                <!-- Botão de comentário -->
                 <div class="ml-6 mt-4">
                     <button type="button" @click="openCommentModal"
                         class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
@@ -134,7 +150,6 @@ const defaultTags = ref([]);
                         </slot>
                     </button>
                 </div>
-                <!-- Botão de salvar -->
                 <div class="ml-6 mt-4 mr-4">
                     <button type="button"
                         class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
@@ -143,11 +158,9 @@ const defaultTags = ref([]);
                         </slot>
                     </button>
                 </div>
-            
-                <!-- Modais -->
+
                 <CommentModal :isOpen="isCommentModalOpen" @closeModal="closeCommentModal" />
                 <PostSettingsModal :isOpen="isSettingsModalOpen" @closeModal="closeSettingsModal" />
-
             </div>
         </div>
     </div>
