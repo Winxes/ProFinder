@@ -18,6 +18,7 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
+                'lightblue': '#808AC5',
                 'azulTexto': '#083A50',
                 'primaria': '#7C93C3',
                 'cardLP': '#516BA3',
