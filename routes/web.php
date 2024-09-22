@@ -27,10 +27,14 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::get('/user/{user_id}', function ($user_id) {
-        return Inertia::render('User', ['user_id' => $user_id]);
-    })->name('user');
+
+    Route::resource('posts', App\Http\Controllers\PostController::class)->except('create');
+    Route::resource('tags', App\Http\Controllers\TagController::class);
 });
+    
+Route::get('/user/{user_id}', function ($user_id) {
+    return Inertia::render('User', ['user_id' => $user_id]);
+})->name('user');
 
 Route::resource('skills', SkillController::class);
 Route::get('/users/skill/{skill}', [UserController::class, 'filterBySkill'])->name('users.skill');

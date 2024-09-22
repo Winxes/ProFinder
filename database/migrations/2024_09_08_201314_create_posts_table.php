@@ -32,8 +32,6 @@ return new class extends Migration
             // Comment counter
             $table->unsignedInteger('comments_count')->default(0);
 
-            // Tags used to describe the project (Might be changed to be more or less especific)
-            $table->set('tags', ['front-end', 'back-end', 'design', 'database', 'networking']);
             
             //Create timestamps in the table
             $table->timestamps();

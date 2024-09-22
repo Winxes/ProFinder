@@ -21,7 +21,12 @@ const closeModal = () => {
 const handlePublish = () => {
     // API depois
     window.location.reload(); // Recarrega a página após a publicação
+    form.post(route("post.store"), {
+        onFinish: () => form.reset("title", "content", "scholarshipType", "selected"),
+    });
 };
+
+
 
 // Dados para o VueMultiselect
 const selected = ref([]);
@@ -46,61 +51,60 @@ const scholarshipType = ref('');
                     <PhX class="w-6 h-6 hover:bg-zinc-100" />
                 </button>
             </div>
-            <div class="mt-6">
-                <div>
-                    <label for="title" class="text-md font-medium">Título</label>
-                    <input
-                        class="w-full bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100"
-                        type="text" id="title" placeholder="Escreva o título da sua publicação" />
-                </div>
+            <form @submit.prevent="handlePublish">
                 <div class="mt-6">
-                    <label for="content" class="text-md font-medium">Descrição</label>
-                    <textarea
-                        class="w-full resize-none h-32 bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100"
-                        id="content" placeholder="Descreva o seu projeto..."></textarea>
-                </div>
-                <div class="mt-6">
-                    <label class="block font-medium mb-2">Tipo de Bolsa</label>
-                    <div class="flex space-x-4">
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio" value="Remunerada" v-model="scholarshipType" />
-                            <span class="ml-2">Remunerada</span>
-                        </label>
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio" value="Voluntária" v-model="scholarshipType" />
-                            <span class="ml-2">Voluntária</span>
-                        </label>
+                    <div>
+                        <label for="title" class="text-md font-medium">Título</label>
+                        <input
+                            class="w-full bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100"
+                            type="text" id="title" placeholder="Escreva o título da sua publicação" />
                     </div>
-                    <!-- Seção dropdown -->
                     <div class="mt-6">
-                        <label class="block font-medium mb-2">Selecione a área de interesse</label>
-                        <VueMultiselect v-model="selected" :options="options" :multiple="true" label="name"
-                            track-by="name" placeholder="Selecione suas habilidades" />
+                        <label for="content" class="text-md font-medium">Descrição</label>
+                        <textarea
+                            class="w-full resize-none h-32 bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100"
+                            id="content" placeholder="Descreva o seu projeto..."></textarea>
+                    </div>
+                    <div class="mt-6">
+                        <label class="block font-medium mb-2">Tipo de Bolsa</label>
+                        <div class="flex space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio" value="Remunerada" v-model="scholarshipType" />
+                                <span class="ml-2">Remunerada</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio" value="Voluntária" v-model="scholarshipType" />
+                                <span class="ml-2">Voluntária</span>
+                            </label>
+                        </div>
+                        <!-- Seção dropdown -->
+                        <div class="mt-6">
+                            <label class="block font-medium mb-2">Selecione a área de interesse</label>
+                            <VueMultiselect v-model="selected" :options="options" :multiple="true" label="name"
+                                track-by="name" placeholder="Selecione suas habilidades" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="flex justify-start mt-6 space-x-4">
-                <button class="flex items-center focus:outline-none hover:bg-gray-100">
-                    <img src="images/Images.png" alt="Mídia" class="w-6 h-6 mr-2" /> Mídia
-                </button>
-                <button class="flex items-center focus:outline-none rounded-md hover:bg-gray-100">
-                    <img src="images/FilePlus.png" alt="Documentos" class="w-6 h-6 mr-2 ml-4" /> Documentos
-                </button>
-            </div>
-            <div class="flex justify-between mt-6">
-                <div class="flex space-x-4 ml-auto">
-                    <button @click="handlePublish"
-                        class="bg-button text-white rounded-lg px-4 py-2 hover:bg-[#9F214E]">Publicar</button>
+                <div class="flex justify-start mt-6 space-x-4">
+                    <button type="button" class="flex items-center focus:outline-none hover:bg-gray-100">
+                        <img src="images/Images.png" alt="Mídia" class="w-6 h-6 mr-2" />
+                        Mídia
+                    </button>
+
+                    <button type="button" class="flex items-center focus:outline-none rounded-md hover:bg-gray-100">
+                        <img src="images/FilePlus.png" alt="Documentos" class="w-6 h-6 mr-2 ml-4" />
+                        Documentos
+                    </button>
+
                 </div>
-            </div>
+                <div class="flex justify-between mt-6">
+                    <div class="flex space-x-4 ml-auto">
+                        <button type="submit" class="bg-button text-white rounded-lg px-4 py-2 hover:bg-[#9F214E]">
+                            Publicar
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </template>
-
-
-
-<!-- para git clone/pull lembrem de instalar as dependências:
- npm install lucide-vue-next
- npm install @phosphor-icons/vue
- npm install vue-multiselect
-  -->
