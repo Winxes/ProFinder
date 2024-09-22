@@ -11,7 +11,7 @@ const posts = ref([]);
 // Função para buscar os posts do backend
 const fetchPosts = async () => {
     try {
-        const response = await fetch('http://localhost:8000/posts'); // Ajuste o URL conforme necessário
+        const response = await fetch('/posts'); 
         if (response.ok) {
             const data = await response.json();
             posts.value = data.map(post => ({

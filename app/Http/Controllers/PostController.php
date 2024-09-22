@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,7 +47,7 @@ class PostController extends Controller
         // ]);
 
         // Create a new post with validated data
-        Post::create([
+        $post = Post::create([
             'user_id' => Auth::id(), // Set the ID of the authenticated user
             'title' => $request->title,
             'content' => $request->content,
@@ -55,6 +56,18 @@ class PostController extends Controller
             'likes' => 0,
             'comments_count' => 0,
         ]);
+
+        if ($request->selected) {
+            // Decodifica a string JSON em um array
+            $tagsArray = json_decode($request->selected, true);
+    
+            // Extrai os nomes das tags
+            foreach ($tagsArray as $tag) {
+                if (isset($tag['name'])) {
+                    $this->attachTags($post, $tag['name']);
+                }
+            }
+        }
 
         return redirect()->route('dashboard')->with('success', 'Post created successfully.');
     }
@@ -121,4 +134,11 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
     }
+
+    public function attachTags(Post $post, $tag_name)
+    {
+        $tag = Tag::firstOrCreate(['name' => $tag_name]);
+        $post->tags()->attach($tag);
+    }
+
 }
