@@ -16,7 +16,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->get(); // Get all posts, ordered by the most recent
-        return view('posts.index', compact('posts'));
+        return response()->json($posts);
     }
 
     /**
@@ -38,12 +38,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // Validate the request data
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'photo_path' => 'nullable|string|max:2048',
-            'tags' => 'nullable|string',
-        ]);
+        // $request->validate([
+        //     'title' => 'required|max:255',
+        //     'content' => 'required',
+        //     'photo_path' => 'nullable|string|max:2048',
+        //     'scholarship' => 'required|string',
+        // ]);
 
         // Create a new post with validated data
         Post::create([
@@ -51,7 +51,9 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'photo_path' => $request->photo_path,
-            'tags' => $request->tags,
+            'scholarship' => $request->scholarship,
+            'likes' => 0,
+            'comments_count' => 0,
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Post created successfully.');
