@@ -1,154 +1,136 @@
 <script setup>
-import { ref } from 'vue';
-import { PhBookmarks, PhChatCircle, PhHeartStraight, PhShareNetwork } from '@phosphor-icons/vue';
+import { ref, onMounted } from 'vue';
+import { PhBookmarks, PhChatCircle, PhHeartStraight } from '@phosphor-icons/vue';
 import { EllipsisVertical } from 'lucide-vue-next';
 import CommentModal from './CommentModal.vue';
 import PostSettingsModal from './PostSettingsModal.vue';
 
-// Definindo props
-const props = defineProps({
-    authorIcon: {
-        type: String,
-        required: true,
-    },
-    projectImage: {
-        type: String,
-        required: false,
-    },
+// Estado dos posts
+const posts = ref([]);
+
+// Função para buscar os posts do backend
+const fetchPosts = async () => {
+    try {
+        const response = await fetch('/posts'); 
+        if (response.ok) {
+            const data = await response.json();
+            posts.value = data.map(post => ({
+                ...post,
+                like_count: post.like_count || 0, // Iniciar contador de likes com valor do backend ou 0
+            }));
+        } else {
+            console.error('Erro ao buscar posts do servidor');
+        }
+    } catch (error) {
+        console.error('Erro de conexão com o backend:', error);
+    }
+};
+
+onMounted(() => {
+    fetchPosts();
 });
 
-const isCommentModalOpen = ref(false);  // controle do modal de "Comentar"
-const isSettingsModalOpen = ref(false); // controle do modal de "Configurações de publicação"
+const isCommentModalOpen = ref(false);
+const isSettingsModalOpen = ref(false);
 
-// Funções para abrir e fechar os modais
 const openCommentModal = () => {
     isCommentModalOpen.value = true;
 };
-
 const closeCommentModal = () => {
     isCommentModalOpen.value = false;
 };
-
 const openSettingsModal = () => {
     isSettingsModalOpen.value = true;
 };
-
 const closeSettingsModal = () => {
     isSettingsModalOpen.value = false;
 };
 
-// Variável que controla se o texto está expandido ou não
-const isExpanded = ref(false);
+// Função para alternar o "like"
+const toggleLike = async (post) => {
+    post.isLiked = !post.isLiked;
 
-// Alterna entre ler mais e ler menos
-const toggleExpand = () => {
-    isExpanded.value = !isExpanded.value;
+    // Atualizar o contador de likes
+    if (post.isLiked) {
+        post.like_count += 1;
+        await sendLikeToBackend(post.id);
+    } else {
+        post.like_count -= 1;
+        await removeLikeFromBackend(post.id);
+    }
 };
 
-// Tags padrão
-const defaultTags = ref([]);
+// Funções simulando chamadas ao backend
+const sendLikeToBackend = async (postId) => {
+    console.log(`Like enviado para o post ${postId}`);
+};
+
+const removeLikeFromBackend = async (postId) => {
+    console.log(`Like removido do post ${postId}`);
+};
 </script>
 
 <template>
-    <!-- box do post -->
-    <div class="flex flex-col bg-post border-gray-300 w-4/5 h-auto shadow-shape rounded-xl">
-        <div class="flex flex-row mx-4">
-            <!-- Slot para o ícone do autor -->
-            <slot name="authorIcon">
-                <img :src="props.authorIcon" alt="icon" class="rounded-full ml-2 mt-2 w-8 h-8 object-cover mr-4" />
-            </slot>
-            <!-- Slot para o nome do autor -->
-            <h2 class="mt-3 font-normal">
-                <slot name="authorName"></slot>
-            </h2>
-            <!-- Slot para a data do post -->
-            <p class="mt-4 px-6 font-normal text-xs">
-                <slot name="postDate"></slot>
-            </p>
-            <!-- Botão de opções -->
-            <div class="ml-auto mt-2">
-                <button type="button" @click="openSettingsModal"
-                    class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
-                    <slot name="optionsIcon">
-                        <EllipsisVertical class="w-6 h-6"></EllipsisVertical>
-                    </slot>
-                </button>
-            </div>
-        </div>
-        <!-- Título do projeto -->
-        <div class="flex flex-row mx-4">
-            <h2 class="ml-2 mt-4 font-bold text-md">
-                <slot name="projectTitle"></slot>
-            </h2>
-        </div>
-        <!-- Descrição e imagem lado a lado -->
-        <div class="flex flex-row mx-4 items-start">
-            <!-- Descrição com limite de altura e botão 'ler mais' -->
-            <div class="w-3/5">
-                <slot name="description">
-                    <p class="text-justify mx-4 ml-2" :class="isExpanded ? '' : 'line-clamp-3 overflow-hidden'">
-                        Descrição padrão
-                    </p>
-                </slot>
-                <button class="ml-2 text-blue-500 mt-1" @click="toggleExpand">
-                    {{ isExpanded ? 'Ler menos' : 'Ler mais' }}
-                </button>
-            </div>
-            <!-- Imagem do projeto -->
-            <div class="w-2/5">
-                <slot name="projectImage">
-                    <img :src="props.projectImage || 'https://example.com/default-image.jpg'" alt="project-image"
-                        class="mr-4 w-full h-auto object-cover rounded-xl" />
-                </slot>
-            </div>
-        </div>
-        <!-- Tags, like, comentário e salvar -->
-        <div class="flex items-center">
-            <div class="flex text-center items-center mt-4">
-                <slot name="tags">
-                    <!-- Conteúdo padrão caso o slot não seja fornecido -->
-                    <div class="flex text-center items-center mt-4">
-                        <button v-for="(tag, index) in defaultTags" :key="index" type="button"
-                            class="ml-2 mb-3 px-3 text-sm shadow-shape rounded-xl hover:bg-zinc-200">
-                            {{ tag }}
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Lista de Posts</h1>
+
+        <div v-if="posts.length > 0">
+            <div v-for="post in posts" :key="post.id" class="flex flex-col bg-post border-gray-300 w-4/5 h-auto shadow-shape rounded-xl mb-6 mx-auto">
+                <div class="flex flex-row mx-4">
+                    <img :src="post.user?.avatar || 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Javier_Milei_en_el_Sal%C3%B3n_Blanco_2_%28cropped%29_%282%29.jpg/1200px-Javier_Milei_en_el_Sal%C3%B3n_Blanco_2_%28cropped%29_%282%29.jpg'" alt="icon"
+                         class="rounded-full ml-2 mt-2 w-8 h-8 object-cover mr-4" />
+                    <h2 class="mt-3 font-normal">{{ post.user?.name }}</h2>
+                    <p class="mt-4 px-6 font-normal text-xs">{{ post.created_at }}</p>
+                    <div class="ml-auto mt-2">
+                        <button type="button" @click="openSettingsModal"
+                            class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
+                            <EllipsisVertical class="w-6 h-6"></EllipsisVertical>
                         </button>
                     </div>
-                </slot>
-            </div>
-            <div class="flex">
-                <!-- Botão de like -->
-                <div class="ml-6 mt-4">
-                    <button type="button"
-                        class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
-                        <slot name="likeIcon">
-                            <PhHeartStraight class="w-6 h-6"></PhHeartStraight>
-                        </slot>
-                    </button>
                 </div>
-                <!-- Botão de comentário -->
-                <div class="ml-6 mt-4">
-                    <button type="button" @click="openCommentModal"
-                        class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
-                        <slot name="commentIcon">
-                            <PhChatCircle class="w-6 h-6"></PhChatCircle>
-                        </slot>
-                    </button>
-                </div>
-                <!-- Botão de salvar -->
-                <div class="ml-6 mt-4 mr-4">
-                    <button type="button"
-                        class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
-                        <slot name="saveIcon">
-                            <PhBookmarks class="w-6 h-6"></PhBookmarks>
-                        </slot>
-                    </button>
-                </div>
-            
-                <!-- Modais -->
-                <CommentModal :isOpen="isCommentModalOpen" @closeModal="closeCommentModal" />
-                <PostSettingsModal :isOpen="isSettingsModalOpen" @closeModal="closeSettingsModal" />
 
+                <div class="flex flex-row mx-4">
+                    <h2 class="ml-2 mt-4 font-bold text-md">{{ post.title }}</h2>
+                </div>
+
+                <div class="flex flex-row mx-4 items-start">
+                    <div class="w-3/5">
+                        <p class="text-justify mx-4 ml-2 line-clamp-3 overflow-hidden">
+                            {{ post.content }}
+                        </p>
+                        <button class="ml-2 text-blue-500 mt-1">Ler mais</button>
+                    </div>
+                    <div class="w-2/5" v-if="post.photo_path">
+                        <img :src="post.photo_path" alt="project-image"
+                             class="mr-4 w-full h-auto object-cover rounded-xl" />
+                    </div>
+                </div>
+
+                <div class="flex items-center mt-4 mx-4 justify-start mb-4">
+                    <div class="flex space-x-6">
+                        <button type="button" @click="toggleLike(post)"
+                            :class="post.isLiked ? 'text-red-500' : 'text-black'">
+                            <PhHeartStraight class="w-6 h-6"></PhHeartStraight>
+                        </button>
+                        <span>{{ post.like_count }}</span>
+
+                        <button type="button" @click="openCommentModal">
+                            <PhChatCircle class="w-6 h-6"></PhChatCircle>
+                        </button>
+
+                        <button type="button">
+                            <PhBookmarks class="w-6 h-6"></PhBookmarks>
+                        </button>
+                    </div>
+
+                    <CommentModal :isOpen="isCommentModalOpen" @closeModal="closeCommentModal" />
+                    <PostSettingsModal :isOpen="isSettingsModalOpen" @closeModal="closeSettingsModal" />
+                </div>
             </div>
+        </div>
+
+        <div v-else>
+            <p class="text-gray-500">Nenhum post encontrado.</p>
         </div>
     </div>
 </template>
