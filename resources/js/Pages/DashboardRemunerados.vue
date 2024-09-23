@@ -28,7 +28,10 @@ const openFiltersModal = () => {
 const closeFiltersModal = () => {
   isFiltersModalOpen.value = false;
 };
+
 </script>
+
+
 
 <template>
   <AppLayout title="Dashboard">
