@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import SearchInput from '@/Components/SearchInput.vue';
-import PostCard from '@/Components/PostCard.vue';
+import postsVolunteer from '@/Components/postsVolunteer.vue';
 import PostModal from '@/Components/PostModal.vue';
 import DashboardFiltersModal from '@/Components/DashboardFiltersModal.vue';
 import { PhSlidersHorizontal } from '@phosphor-icons/vue';
@@ -56,7 +56,7 @@ const closeFiltersModal = () => {
           <div
             class="flex justify-between items-center mt-8 w-4/5 sm:px-6 lg:px-4 md:px-0 bg-gray-100 p-4 rounded-xl shadow-shape mx-auto">
             <div class="flex flex-row w-full mx-6 items-center">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/CheHigh.jpg/368px-CheHigh.jpg" alt="Avatar"
+              <img src="https://avatars.githubusercontent.com/u/135720339?v=4" alt="Avatar"
                 class="rounded-full w-12 h-12 object-cover mr-4" />
               <!-- Botão para abrir o modal -->
               <button
@@ -67,7 +67,7 @@ const closeFiltersModal = () => {
 
           <!-- Seção de posts -->
           <div class="flex justify-center items-center mt-20">
-            <PostCard />
+            <postsVolunteer />
           </div>
 
           <div>

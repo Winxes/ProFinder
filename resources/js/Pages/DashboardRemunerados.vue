@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import SearchInput from '@/Components/SearchInput.vue';
-import PostCard from '@/Components/PostCard.vue';
+import postsPayed from '@/Components/postsPayed.vue';
 import PostModal from '@/Components/PostModal.vue';
 import DashboardFiltersModal from '@/Components/DashboardFiltersModal.vue';
 import { PhSlidersHorizontal } from '@phosphor-icons/vue';
@@ -67,7 +67,7 @@ const closeFiltersModal = () => {
 
           <!-- Seção de posts -->
           <div class="flex justify-center items-center mt-20">
-            <PostCard />
+            <postsPayed />
           </div>
 
           <div>

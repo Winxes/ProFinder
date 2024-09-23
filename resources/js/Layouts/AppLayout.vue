@@ -54,9 +54,6 @@ const user_id = document.querySelector('meta[name="user_id"]').getAttribute('con
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('about')" :active="route().current('about')">
-                                    About
-                                </NavLink>
                             </div>
                         </div>
 

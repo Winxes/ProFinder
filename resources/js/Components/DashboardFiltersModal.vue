@@ -1,7 +1,6 @@
 <script setup>
 import { defineProps, defineEmits, ref } from 'vue';
 import { PhX } from '@phosphor-icons/vue';
-import VueMultiselect from 'vue-multiselect';
 import 'vue-multiselect/dist/vue-multiselect.css';
 
 // Recebendo a prop isOpen do componente pai
@@ -17,22 +16,51 @@ const closeModal = () => {
     emit('closeModal');
 };
 
-// Função de publicar (e atualizar a página)
-const handlePublish = () => {
-    // Adicione a lógica para aplicar filtros ou fazer a publicação
-    console.log('Filtro aplicado:', { scholarshipType: scholarshipType.value, selected: selected.value });
-    closeModal(); // Fechar o modal após aplicar filtros
-};
+const csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
 
-// Dados para o VueMultiselect
-const selected = ref([]);
-const options = ref([
-    { name: 'Desenvolvimento' },
-    { name: 'Design' },
-    { name: 'IA' },
-    { name: 'Administração' },
-    { name: 'Engenharia' }
-]);
+const handlePublish = async () => {
+    const payload = {
+        scholarshipType: scholarshipType.value,
+    };
+
+    if (payload.scholarshipType === '') {
+        
+        window.location.replace('/dashboard');
+
+    } 
+    if (payload.scholarshipType === 'Remunerada') {
+        
+        window.location.replace('/dashboard/remunerados');
+
+    }
+    if (payload.scholarshipType === 'Voluntária') {
+        
+        window.location.replace('/dashboard/voluntarios');
+
+    }
+
+
+    // try {
+    //     const response = await fetch('/filter-posts', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'X-CSRF-TOKEN': csrfToken,
+    //         },
+    //         body: JSON.stringify(payload),
+    //     });
+
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         console.log('Filtro aplicado com sucesso:', data);
+    //         closeModal();
+    //     } else {
+    //         console.error('Erro ao aplicar filtro:', response.status);
+    //     }
+    // } catch (error) {
+    //     console.error('Erro ao conectar ao backend:', error);
+    // }
+};
 
 const scholarshipType = ref('');
 </script>
@@ -58,13 +86,7 @@ const scholarshipType = ref('');
                             <input type="radio" class="form-radio" value="Voluntária" v-model="scholarshipType" />
                             <span class="ml-2">Voluntária</span>
                         </label>
-                    </div>
-                    <!-- Seção dropdown -->
-                    <div class="mt-6">
-                        <label class="block font-medium mb-2">Área de interesse</label>
-                        <VueMultiselect v-model="selected" :options="options" :multiple="true" label="name"
-                            track-by="name" placeholder="Escolha os filtros" />
-                    </div>
+                    </div>                    
                 </div>
                 <div class="flex justify-end mt-4">
                     <button type="submit" class="bg-button text-white rounded-lg px-4 py-2 hover:bg-[#9F214E]">
