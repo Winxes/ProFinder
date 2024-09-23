@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -87,4 +88,11 @@ class UserController extends Controller
         return response()->json($users);
     }
     
+    public function profile($user_id) {
+        $user = User::find($user_id);
+        return Inertia::render('User', [
+            'user' => $user
+        ]);
+    }
+
 }

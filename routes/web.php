@@ -30,8 +30,14 @@ Route::middleware([
 
     Route::resource('posts', App\Http\Controllers\PostController::class)->except('create');
     Route::resource('tags', App\Http\Controllers\TagController::class);
+
+
 });
-    
+
+Route::get("/dashboard-admin", function () {
+    return Inertia::render('DashboardAdmin');
+})->name("dashboard-admin");
+
 Route::get('/user/{user_id}', function ($user_id) {
     return Inertia::render('User', ['user_id' => $user_id]);
 })->name('user');
@@ -40,3 +46,5 @@ Route::resource('skills', SkillController::class);
 Route::get('/users/skill/{skill}', [UserController::class, 'filterBySkill'])->name('users.skill');
 Route::get('/users/{name}', [UserController::class, 'findByName'])->name('users.name');
 Route::post('/users/{user_id}/skills', [UserController::class, 'attachSkill'])->name('users.skills.store');
+Route::get('/user/{user_id}/profile', [UserController::class, 'profile'])->name('user.profile');
+

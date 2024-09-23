@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, ref } from 'vue';
 import { PhX } from '@phosphor-icons/vue'; 
 
 // Recebendo a prop isOpen do componente pai
@@ -7,24 +7,56 @@ const props = defineProps({
     isOpen: Boolean
 });
 
-// Event para o fechamento do modal
-const emit = defineEmits(['closeCommentModal']);
+// Emitindo evento para fechar o modal
+const emit = defineEmits(['closeModal']);
 
-// Função de fechamento do modal
+// Estado do comentário
+const comment = ref('');
+const isSubmitting = ref(false); // Para controlar o estado do botão de envio
+const errorMessage = ref(''); // Para exibir mensagens de erro
+
+// Função para fechar o modal
 const closeModal = () => {
     emit('closeModal');
 };
 
-const handlePublish = () => {
-    // API depois
-    window.location.reload(); // Recarrega a página após a publicação
-    //criar bd de comentários
+// Função para publicar o comentário
+const handlePublish = async () => {
+    // Limpar mensagens de erro
+    errorMessage.value = '';
 
-    // form.post(route("comment.store"), {
-    //     onFinish: () => form.reset("comment"),
-    // });
+    // Verifica se o comentário não está vazio
+    if (comment.value.trim()) {
+        isSubmitting.value = true; // Desabilita o botão durante o envio
+
+        try {
+            const response = await fetch('', { // URL da API
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    comment: comment.value, 
+                }),
+            });
+
+            if (response.ok) {
+                comment.value = ''; 
+                closeModal(); 
+            } else {
+                const data = await response.json();
+                errorMessage.value = data.message || 'Erro ao publicar comentário.';
+            }
+        } catch (error) {
+            errorMessage.value = 'Erro na conexão com o servidor. Tente novamente mais tarde.';
+            console.error('Erro na requisição:', error);
+        } finally {
+            isSubmitting.value = false; 
+        }
+    } else {
+        errorMessage.value = 'O comentário não pode estar vazio!';
+    }
 };
-
 </script>
 
 <template>
@@ -43,16 +75,22 @@ const handlePublish = () => {
                             class="rounded-full w-10 h-10 object-cover mr-4" />
                     </div>
                     <div class="w-full">
-                        <label for="title" class="text-md font-medium"></label>
+                        <label for="comment" class="text-md font-medium"></label>
                         <textarea
+                            v-model="comment"
                             class="resize-none w-full h-40 bg-white border border-gray-300 rounded-xl py-2 px-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-zinc-100"
-                            type="text" id="comment" placeholder="Escreva um comentário"></textarea>
+                            id="comment" placeholder="Escreva um comentário"></textarea>
                     </div>
                 </div>
                 <div class="flex justify-between mt-6">
+                    <div v-if="errorMessage" class="text-red-500 text-sm">{{ errorMessage }}</div>
+                    
                     <div class="flex space-x-4 ml-auto">
-                        <button type="submit" class="bg-button text-white rounded-lg px-4 py-2 hover:bg-[#9F214E]">
-                            Publicar
+                        <button type="submit" 
+                            :disabled="isSubmitting" 
+                            class="bg-button text-white rounded-lg px-4 py-2 hover:bg-[#9F214E] disabled:bg-gray-300">
+                            <span v-if="isSubmitting">Publicando...</span>
+                            <span v-else>Publicar</span>
                         </button>
                     </div>
                 </div>
