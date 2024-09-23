@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get(); // Get all posts, ordered by the most recent
+        $posts = Post::with('user')->get(); // Get all posts, ordered by the most recent
         return response()->json($posts);
         // return Inertia::render('Dashboard', ['posts' => $posts]);
     }
@@ -143,5 +143,10 @@ class PostController extends Controller
         if ($request->scholarshipType == 'Remunerada') {
             return redirect()->route('posts.filterPayed');
         }
+    }
+
+    public function search($searchInput) {
+        $posts = Post::where('title', 'like', '%' . $searchInput . '%')->get();
+        return Inertia::render('DashboardSearch', ['posts' => $posts]);
     }
 }

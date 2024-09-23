@@ -77,7 +77,7 @@ const removeLikeFromBackend = async (postId) => {
         <div v-if="posts.length > 0">
             <div v-for="post in posts" :key="post.id" class="flex flex-col bg-post border-gray-300 w-4/5 h-auto shadow-shape rounded-xl mb-6 mx-auto">
                 <div class="flex flex-row mx-4">
-                    <img :src="post.user?.avatar || 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Javier_Milei_en_el_Sal%C3%B3n_Blanco_2_%28cropped%29_%282%29.jpg/1200px-Javier_Milei_en_el_Sal%C3%B3n_Blanco_2_%28cropped%29_%282%29.jpg'" alt="icon"
+                    <img :src="post.user?.avatar || 'https://t4.ftcdn.net/jpg/03/49/49/79/360_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.webp'" alt="icon"
                          class="rounded-full ml-2 mt-2 w-8 h-8 object-cover mr-4" />
                     <h2 class="mt-3 font-normal">{{ post.user?.name }}</h2>
                     <p class="mt-4 px-6 font-normal text-xs">{{ post.created_at }}</p>

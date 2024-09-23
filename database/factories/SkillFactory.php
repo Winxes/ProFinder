@@ -20,7 +20,7 @@ class SkillFactory extends Factory
     {
         return [
             'id' => $this->faker->unique()->randomNumber(),
-            'name' => $this->faker->word(),
+            'name' => $this->faker->unique()->word(),
             //
         ];
     }

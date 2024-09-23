@@ -46,6 +46,8 @@ Route::get("/dashboard-admin", function () {
     return Inertia::render('DashboardAdmin');
 })->name("dashboard-admin");
 
+route::get('list-posts/search/{searchInput}', [App\Http\Controllers\PostController::class, 'search'])->name('list-posts.search');
+
 Route::get('/user/{user_id}', function ($user_id) {
     return Inertia::render('User', ['user_id' => $user_id]);
 })->name('user');

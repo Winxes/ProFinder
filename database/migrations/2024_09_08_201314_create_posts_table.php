@@ -24,8 +24,7 @@ return new class extends Migration
             $table->text('content');
             
             // url used for the image
-            $table->string('photo_path', 2048)->nullable();
-            
+            $table->string('photo_path', 2048)->default('https://ajuda.ufrpe.br/images/footer/ufrpe-uni.png')->nullable();
             // Like counter
             $table->unsignedInteger('likes')->default(0);
             
