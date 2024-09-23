@@ -5,18 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
-     /**
-     * Display a listing of posts.
+    /**
+     * Display the dashboard with all posts.
      *
-     * @return \Illuminate\View\View
+     * @return \Inertia\Response
      */
     public function index()
     {
-        $posts = Post::latest()->get(); // Get all posts, ordered by the most recent
-        return view('posts.index', compact('posts'));
+        $posts = Post::with('user')->get(); // Get all posts, ordered by the most recent
+        return response()->json($posts);
+        // return Inertia::render('Dashboard', ['posts' => $posts]);
     }
 
     /**
@@ -38,12 +40,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // Validate the request data
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'photo_path' => 'nullable|string|max:2048',
-            'tags' => 'nullable|string',
-        ]);
+        // $request->validate([
+        //     'title' => 'required|max:255',
+        //     'content' => 'required',
+        //     'photo_path' => 'nullable|string|max:2048',
+        //     'scholarship' => 'required|string',
+        // ]);
 
         // Create a new post with validated data
         Post::create([
@@ -51,7 +53,9 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'photo_path' => $request->photo_path,
-            'tags' => $request->tags,
+            'scholarship' => $request->scholarship,
+            'likes' => 0,
+            'comments_count' => 0,
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Post created successfully.');
@@ -118,5 +122,31 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+    }
+
+    public function filterVolunteers()
+    {
+        $posts = Post::where('scholarship', 'Voluntária')->get();
+        return response()->json($posts);
+    }
+    
+
+    public function filterPayed() {
+        $posts = Post::where('scholarship', 'Remunerada')->get();
+        return response()->json($posts);
+    }
+
+    public function filter(Request $request) {
+        if ($request->scholarshipType == 'Voluntária') {
+            return redirect()->route('posts.filterVolunteers');
+        }
+        if ($request->scholarshipType == 'Remunerada') {
+            return redirect()->route('posts.filterPayed');
+        }
+    }
+
+    public function search($searchInput) {
+        $posts = Post::where('title', 'like', '%' . $searchInput . '%')->get();
+        return Inertia::render('DashboardSearch', ['posts' => $posts]);
     }
 }

@@ -19,8 +19,7 @@ class PostFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id, // Randomly assign an existing user
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraph,
-            'photo_path' => $this->faker->imageUrl(),
-            'tags' => implode(',', $this->faker->randomElements(['front-end', 'back-end', 'design', 'database', 'networking'], 2)),
+            //'tags' => implode(',', $this->faker->randomElements(['front-end', 'back-end', 'design', 'database', 'networking'], 2)),
         ];
     }
 }

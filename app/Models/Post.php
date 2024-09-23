@@ -13,7 +13,10 @@ class Post extends Model
         'title',
         'content',
         'photo_path',
-        'tags',
+        'likes',
+        'comments_count',
+        'user_id',
+        'scholarship',
     ];
 
     /**
@@ -29,9 +32,11 @@ class Post extends Model
      */
     public function tags() 
     {
-        return $this->belongsToMany(Tag::class);
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
+            return $this->belongsToMany(Tag::class);
+        
     }
+    public function comments()
+        {
+            return $this->hasMany(Comment::class);
+        }
 }

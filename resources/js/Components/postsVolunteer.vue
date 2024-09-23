@@ -11,7 +11,7 @@ const posts = ref([]);
 // Função para buscar os posts do backend
 const fetchPosts = async () => {
     try {
-        const response = await fetch('/posts'); 
+        const response = await fetch('/list-posts/voluntarios'); 
         if (response.ok) {
             const data = await response.json();
             posts.value = data.map(post => ({
@@ -46,18 +46,6 @@ const closeSettingsModal = () => {
     isSettingsModalOpen.value = false;
 };
 
-const formatDateTime = (dateString) => {
-    const date = new Date(dateString);
-    
-    const day = String(date.getDate()).padStart(2, '0'); // Dia
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês (0-11)
-    const year = date.getFullYear(); // Ano
-    const hours = String(date.getHours()).padStart(2, '0'); // Horas
-    const minutes = String(date.getMinutes()).padStart(2, '0'); // Minutos
-    
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
-};
-
 // Função para alternar o "like"
 const toggleLike = async (post) => {
     post.isLiked = !post.isLiked;
@@ -70,6 +58,18 @@ const toggleLike = async (post) => {
         post.like_count -= 1;
         await removeLikeFromBackend(post.id);
     }
+};
+
+const formatDateTime = (dateString) => {
+    const date = new Date(dateString);
+    
+    const day = String(date.getDate()).padStart(2, '0'); // Dia
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês (0-11)
+    const year = date.getFullYear(); // Ano
+    const hours = String(date.getHours()).padStart(2, '0'); // Horas
+    const minutes = String(date.getMinutes()).padStart(2, '0'); // Minutos
+    
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
 
 // Funções simulando chamadas ao backend
@@ -93,8 +93,6 @@ const removeLikeFromBackend = async (postId) => {
                          class="rounded-full ml-2 mt-2 w-8 h-8 object-cover mr-4" />
                     <h2 class="mt-3 font-normal">{{ post.user?.name }}</h2>
                     <p class="mt-4 px-6 font-normal text-xs">{{ formatDateTime(post.created_at) }}</p>
-
-
                     <div class="ml-auto mt-2">
                         <button type="button" @click="openSettingsModal"
                             class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">
@@ -114,7 +112,7 @@ const removeLikeFromBackend = async (postId) => {
                         </p>
                         <button class="ml-2 text-blue-500 mt-1">Ler mais</button>
                     </div>
-                    <div class="w-2/5">
+                    <div class="w-2/5" >
                         <img src="https://ajuda.ufrpe.br/images/footer/ufrpe-uni.png" alt="project-image"
                              class="mr-4 w-full h-auto object-cover rounded-xl" />
                     </div>

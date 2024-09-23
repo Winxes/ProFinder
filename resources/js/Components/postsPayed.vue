@@ -11,7 +11,7 @@ const posts = ref([]);
 // Função para buscar os posts do backend
 const fetchPosts = async () => {
     try {
-        const response = await fetch('/posts'); 
+        const response = await fetch('/list-posts/remunerados'); 
         if (response.ok) {
             const data = await response.json();
             posts.value = data.map(post => ({
@@ -93,8 +93,6 @@ const removeLikeFromBackend = async (postId) => {
                          class="rounded-full ml-2 mt-2 w-8 h-8 object-cover mr-4" />
                     <h2 class="mt-3 font-normal">{{ post.user?.name }}</h2>
                     <p class="mt-4 px-6 font-normal text-xs">{{ formatDateTime(post.created_at) }}</p>
-
-
                     <div class="ml-auto mt-2">
                         <button type="button" @click="openSettingsModal"
                             class="items-center mb-3 rounded-md hover:bg-zinc-200 active:bg-zinc-300 focus:outline-none transition ease-in-out duration-150">

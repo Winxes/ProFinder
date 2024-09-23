@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Models\Post;
 
 class UserController extends Controller
 {
@@ -58,9 +60,12 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
-        //
+        $user = User::find($user_id);
+        $user->delete(); 
+
+        return redirect()->route('dashboard-admin');
     }
 
     public function filterBySkill($skillName) {
@@ -87,4 +92,13 @@ class UserController extends Controller
         return response()->json($users);
     }
     
+    public function profile($user_id) {
+        $user = User::find($user_id);
+        $posts = Post::where('user_id', $user_id)->get();
+        return Inertia::render('User', [
+            'user' => $user,
+            'posts' => $posts
+        ]);
+    }   
+
 }

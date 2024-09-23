@@ -28,15 +28,35 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::get('/dashboard/remunerados', function() {
+        return Inertia::render('DashboardRemunerados');
+    })->name('dashboard.remunerados');
+    
+    Route::get('/dashboard/voluntarios', function() {
+        return Inertia::render('DashboardVoluntarios');
+    })->name('dashboard.voluntarios');
+
     Route::resource('posts', App\Http\Controllers\PostController::class)->except('create');
     Route::resource('tags', App\Http\Controllers\TagController::class);
+
+
 });
-    
+
+Route::get("/dashboard-admin", [App\Http\Controllers\DashboardAdminController::class, "index"])->name("dashboard-admin");
+Route::get("delete-user/{user_id}", [App\Http\Controllers\UserController::class, "destroy"])->name("delete-user");
+
+route::get('list-posts/search/{searchInput}', [App\Http\Controllers\PostController::class, 'search'])->name('list-posts.search');
+
 Route::get('/user/{user_id}', function ($user_id) {
     return Inertia::render('User', ['user_id' => $user_id]);
 })->name('user');
+Route::post("/filter-posts", [App\Http\Controllers\PostController::class, 'filter'])->name('filter-posts');
+Route::get('/list-posts/remunerados', [App\Http\Controllers\PostController::class, 'filterPayed'])->name('list-posts.remunerados');
+Route::get('/list-posts/voluntarios', [App\Http\Controllers\PostController::class, 'filterVolunteers'])->name('list-posts.voluntarios');
 
 Route::resource('skills', SkillController::class);
 Route::get('/users/skill/{skill}', [UserController::class, 'filterBySkill'])->name('users.skill');
 Route::get('/users/{name}', [UserController::class, 'findByName'])->name('users.name');
 Route::post('/users/{user_id}/skills', [UserController::class, 'attachSkill'])->name('users.skills.store');
+Route::get('/user/{user_id}/profile', [UserController::class, 'profile'])->name('user.profile');
+

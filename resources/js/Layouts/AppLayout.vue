@@ -25,6 +25,9 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+
+const user_id = document.querySelector('meta[name="user_id"]').getAttribute('content');
+
 </script>
 
 <template>
@@ -50,9 +53,6 @@ const logout = () => {
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
-                                </NavLink>
-                                <NavLink :href="route('about')" :active="route().current('about')">
-                                    About
                                 </NavLink>
                             </div>
                         </div>
@@ -142,8 +142,14 @@ const logout = () => {
                                         </div>
 
                                         <DropdownLink :href="route('profile.show')">
+                                            Edit Profile
+                                        </DropdownLink>
+
+                                        <DropdownLink :href="`/user/${user_id}/profile`">
                                             Profile
                                         </DropdownLink>
+
+                                    
 
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
                                             API Tokens
