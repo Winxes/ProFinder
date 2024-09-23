@@ -25,6 +25,9 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+
+const user_id = document.querySelector('meta[name="user_id"]').getAttribute('content');
+
 </script>
 
 <template>
@@ -145,7 +148,7 @@ const logout = () => {
                                             Edit Profile
                                         </DropdownLink>
 
-                                        <DropdownLink :href="route('profile.show')">
+                                        <DropdownLink :href="`/user/${user_id}/profile`">
                                             Profile
                                         </DropdownLink>
 
