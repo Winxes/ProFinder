@@ -71,7 +71,7 @@ const handlePublish = async () => {
                 </div>
                 <div class="mt-6 flex">
                     <div class="flex flex-row">
-                        <img src="https://avatars.githubusercontent.com/u/135720339?v=4" alt="Avatar"
+                        <img src="https://t4.ftcdn.net/jpg/03/49/49/79/360_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.webp" alt="Avatar"
                             class="rounded-full w-10 h-10 object-cover mr-4" />
                     </div>
                     <div class="w-full">

@@ -5,18 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
-     /**
-     * Display a listing of posts.
+    /**
+     * Display the dashboard with all posts.
      *
-     * @return \Illuminate\View\View
+     * @return \Inertia\Response
      */
     public function index()
     {
-        $posts = Post::latest()->get(); // Get all posts, ordered by the most recent
+        $posts = Post::with('user')->get(); // Get all posts, ordered by the most recent
         return response()->json($posts);
+        // return Inertia::render('Dashboard', ['posts' => $posts]);
     }
 
     /**
@@ -120,5 +122,31 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+    }
+
+    public function filterVolunteers()
+    {
+        $posts = Post::where('scholarship', 'Voluntária')->get();
+        return response()->json($posts);
+    }
+    
+
+    public function filterPayed() {
+        $posts = Post::where('scholarship', 'Remunerada')->get();
+        return response()->json($posts);
+    }
+
+    public function filter(Request $request) {
+        if ($request->scholarshipType == 'Voluntária') {
+            return redirect()->route('posts.filterVolunteers');
+        }
+        if ($request->scholarshipType == 'Remunerada') {
+            return redirect()->route('posts.filterPayed');
+        }
+    }
+
+    public function search($searchInput) {
+        $posts = Post::where('title', 'like', '%' . $searchInput . '%')->get();
+        return Inertia::render('DashboardSearch', ['posts' => $posts]);
     }
 }
