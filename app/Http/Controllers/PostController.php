@@ -141,4 +141,44 @@ class PostController extends Controller
         $post->tags()->attach($tag);
     }
 
+
+    public function filter(Request $request) {       
+
+        if ($request->filled('scholarship') && !$request->filled('tags')) {
+            return $this->filterByScholarship($request->scholarship);
+        }
+        
+        if ($request->filled('tags') && !$request->filled('scholarship')) {
+            return $this->filterByTag($request->tags);
+        }
+        
+        if ($request->filled('scholarship') && $request->filled('tags')) {
+            $posts = Post::where('scholarship', $request->scholarship)
+                ->whereHas('tags', function ($query) use ($request) {
+                    $query->where('name', $request->tags);
+                })
+                ->get();
+            return response()->json($posts);
+        }
+        
+        return response()->json(Post::latest()->get());
+        
+    }
+    public function filterByTag($tag)
+    {
+        $posts = Post::whereHas('tags', function ($query) use ($tag) {
+            $query->where('name', $tag);
+        })->get();
+
+        return $posts;
+    }
+
+    public function filterByScholarship($scholarship)
+    {
+        $posts = Post::where('scholarship', $scholarship)->get();
+
+        return $posts;
+    }
+
+
 }

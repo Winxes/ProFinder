@@ -17,11 +17,34 @@ const closeModal = () => {
     emit('closeModal');
 };
 
-// Função de publicar (e atualizar a página)
-const handlePublish = () => {
-    // Adicione a lógica para aplicar filtros ou fazer a publicação
-    console.log('Filtro aplicado:', { scholarshipType: scholarshipType.value, selected: selected.value });
-    closeModal(); // Fechar o modal após aplicar filtros
+const csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+
+const handlePublish = async () => {
+    const payload = {
+        scholarship_type: scholarshipType.value, 
+        interests: selected.value.map(option => option.name), 
+    };
+
+    try {
+        const response = await fetch('/posts/filter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Filtro aplicado com sucesso:', data);
+            closeModal(); 
+        } else {
+            console.error('Erro ao aplicar filtro:', response.status);
+        }
+    } catch (error) {
+        console.error('Erro ao conectar ao backend:', error);
+    }
 };
 
 // Dados para o VueMultiselect

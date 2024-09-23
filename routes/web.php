@@ -29,6 +29,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('posts', App\Http\Controllers\PostController::class)->except('create');
+    Route::post('/posts/filter', [App\Http\Controllers\PostController::class, 'filter'])->name('posts.filter');
     Route::resource('tags', App\Http\Controllers\TagController::class);
 });
     

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import SearchInput from '@/Components/SearchInput.vue';
 import PostCard from '@/Components/PostCard.vue';
@@ -28,6 +28,26 @@ const openFiltersModal = () => {
 const closeFiltersModal = () => {
   isFiltersModalOpen.value = false;
 };
+
+const posts = ref([]);
+const fetchPosts = async () => {
+    try {
+        const response = await fetch('/posts'); 
+        if (response.ok) {
+            const data = await response.json();
+            posts.value = data; 
+        } else {
+            console.error('Erro ao buscar posts do servidor');
+        }
+    } catch (error) {
+        console.error('Erro de conexão com o backend:', error);
+    }
+};
+
+
+onMounted(() => {
+    fetchPosts();
+});
 </script>
 
 <template>
@@ -68,6 +88,21 @@ const closeFiltersModal = () => {
           <!-- Seção de posts -->
           <div class="flex justify-center items-center mt-20">
             <PostCard />
+            <div class="container mx-auto p-4">
+              <h1 class="text-2xl font-bold mb-4">Lista de Posts</h1>
+  
+              <div v-if="posts.length > 0">
+              <ul>
+                <li v-for="post in posts" :key="post.id">
+                  <PostCard :post="post" />
+                </li>
+              </ul>
+            </div>
+  
+      <div v-else>
+        <p class="text-gray-500">Nenhum post encontrado.</p>
+      </div>
+    </div>
           </div>
 
           <div>
