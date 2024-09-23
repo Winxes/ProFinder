@@ -6,6 +6,9 @@ import PostCard from '@/Components/PostCard.vue';
 import PostModal from '@/Components/PostModal.vue';
 import DashboardFiltersModal from '@/Components/DashboardFiltersModal.vue';
 import { PhSlidersHorizontal } from '@phosphor-icons/vue';
+import CommentModal from '@/Components/CommentModal.vue';
+import PostSettingsModal from '@/Components/PostSettingsModal.vue';
+
 
 // Controle dos modais
 const isPostModalOpen = ref(false);   // Controle do modal de "Fazer uma publicação"
@@ -29,13 +32,22 @@ const closeFiltersModal = () => {
   isFiltersModalOpen.value = false;
 };
 
+
+
+
+
+
 const posts = ref([]);
+const isCommentModalOpen = ref(false);
+const isSettingsModalOpen = ref(false);
+const selectedPost = ref(null);
+
+// Function to fetch posts from backend
 const fetchPosts = async () => {
     try {
-        const response = await fetch('/posts'); 
+        const response = await fetch('/posts');
         if (response.ok) {
-            const data = await response.json();
-            posts.value = data; 
+            posts.value = await response.json();
         } else {
             console.error('Erro ao buscar posts do servidor');
         }
@@ -44,6 +56,29 @@ const fetchPosts = async () => {
     }
 };
 
+// Function to handle post like
+const handleLike = async (post) => {
+    if (post.isLiked) {
+        post.like_count--;
+    } else {
+        post.like_count++;
+    }
+    post.isLiked = !post.isLiked;
+
+    await (post.isLiked ? sendLikeToBackend(post.id) : removeLikeFromBackend(post.id));
+};
+
+// Function to handle comment modal
+const openCommentModal = (post) => {
+    selectedPost.value = post;
+    isCommentModalOpen.value = true;
+};
+
+// Function to handle settings modal
+const openSettingsModal = (post) => {
+    selectedPost.value = post;
+    isSettingsModalOpen.value = true;
+};
 
 onMounted(() => {
     fetchPosts();
@@ -87,23 +122,20 @@ onMounted(() => {
 
           <!-- Seção de posts -->
           <div class="flex justify-center items-center mt-20">
-            <PostCard />
             <div class="container mx-auto p-4">
               <h1 class="text-2xl font-bold mb-4">Lista de Posts</h1>
-  
               <div v-if="posts.length > 0">
-              <ul>
-                <li v-for="post in posts" :key="post.id">
-                  <PostCard :post="post" />
-                </li>
-              </ul>
+                <div v-for="post in posts" :key="post.id" class="flex flex-col bg-post border-gray-300 w-4/5 h-auto shadow-shape rounded-xl mb-6 mx-auto">
+                  <PostCard :post="post" @like="handleLike" @comment="openCommentModal" @settings="openSettingsModal" />
+                </div>
+              </div>
+              <div v-else>
+                <p class="text-gray-500">Nenhum post encontrado.</p>
+              </div>
+              <CommentModal :isOpen="isCommentModalOpen" @closeModal="isCommentModalOpen = false" />
+              <PostSettingsModal :isOpen="isSettingsModalOpen" @closeModal="isSettingsModalOpen = false" />
             </div>
-  
-      <div v-else>
-        <p class="text-gray-500">Nenhum post encontrado.</p>
-      </div>
-    </div>
-          </div>
+  </div>
 
           <div>
             <!-- Modal de Publicação -->
