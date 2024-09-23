@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Post;
 
 class UserController extends Controller
 {
@@ -90,9 +91,11 @@ class UserController extends Controller
     
     public function profile($user_id) {
         $user = User::find($user_id);
+        $posts = Post::where('user_id', $user_id)->get();
         return Inertia::render('User', [
-            'user' => $user
+            'user' => $user,
+            'posts' => $posts
         ]);
-    }
+    }   
 
 }

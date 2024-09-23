@@ -20,7 +20,7 @@ class PostFactory extends Factory
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraph,
             'photo_path' => $this->faker->imageUrl(),
-            'tags' => implode(',', $this->faker->randomElements(['front-end', 'back-end', 'design', 'database', 'networking'], 2)),
+            //'tags' => implode(',', $this->faker->randomElements(['front-end', 'back-end', 'design', 'database', 'networking'], 2)),
         ];
     }
 }
