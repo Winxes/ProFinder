@@ -42,9 +42,8 @@ Route::middleware([
 
 });
 
-Route::get("/dashboard-admin", function () {
-    return Inertia::render('DashboardAdmin');
-})->name("dashboard-admin");
+Route::get("/dashboard-admin", [App\Http\Controllers\DashboardAdminController::class, "index"])->name("dashboard-admin");
+Route::get("delete-user/{user_id}", [App\Http\Controllers\UserController::class, "destroy"])->name("delete-user");
 
 route::get('list-posts/search/{searchInput}', [App\Http\Controllers\PostController::class, 'search'])->name('list-posts.search');
 
