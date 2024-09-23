@@ -120,8 +120,8 @@ console.log(props.posts);
                       </p>
                       <button class="ml-2 text-blue-500 mt-1">Ler mais</button>
                     </div>
-                    <div class="w-2/5" v-if="post.photo_path">
-                      <img :src="post.photo_path" alt="project-image"
+                    <div class="w-2/5">
+                      <img src="https://ajuda.ufrpe.br/images/footer/ufrpe-uni.png" alt="project-image"
                         class="mr-4 w-full h-auto object-cover rounded-xl" />
                     </div>
                   </div>
