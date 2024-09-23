@@ -28,6 +28,7 @@ const openFiltersModal = () => {
 const closeFiltersModal = () => {
   isFiltersModalOpen.value = false;
 };
+
 </script>
 
 <template>
