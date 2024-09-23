@@ -60,9 +60,12 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
-        //
+        $user = User::find($user_id);
+        $user->delete(); 
+
+        return redirect()->route('dashboard-admin');
     }
 
     public function filterBySkill($skillName) {

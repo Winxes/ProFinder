@@ -1,3 +1,15 @@
+<script setup>
+import {inertia} from '@inertiajs/inertia';
+
+const props = defineProps({
+    userCount: Number,
+    postCount: Number,
+    users: Array
+});
+
+console.log(props.users);
+</script>
+
 <template>
     <div class="antialiased bg-black w-full min-h-screen text-slate-300 relative py-4">
         <div class="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2">
@@ -60,8 +72,8 @@
                         <div class="bg-black/60 to-white/5 p-6 rounded-lg">
                             <div class="flex flex-row space-x-4 items-center">
                                 <div id="stats-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v2h14V3M5 10v2h14v-2M5 17v2h14v-2M3 3v18a2 2 0 002 2h14a2 2 0 002-2V3M5 10h14M5 17h14" />
                                     </svg>
                                 </div>
                                 <div>
@@ -75,8 +87,8 @@
                         <div class="bg-black/60 p-6 rounded-lg">
                             <div class="flex flex-row space-x-4 items-center">
                                 <div id="stats-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                                     </svg>
                                 </div>
                                 <div>
@@ -101,7 +113,7 @@
                                 <th class="text-left py-3 px-2 rounded-r-lg">Actions</th>
                             </thead>
                             <tbody>
-                                <tr v-for="user in recentUsers" :key="user.id" class="border-b border-gray-700">
+                                <tr v-for="user in props.users" :key="user.id" class="border-b border-gray-700">
                                     <td class="py-3 px-2 font-bold">
                                         <div class="inline-flex space-x-3 items-center">
                                             <span><img class="rounded-full w-8 h-8" :src="user.avatar" alt=""></span>
@@ -110,17 +122,17 @@
                                     </td>
                                     <td class="py-3 px-2">{{ user.email }}</td>
                                     <td class="py-3 px-2">{{ user.role }}</td>
-                                    <td class="py-3 px-2">Approved</td>
+                                    <td class="py-3 px-2">{{ user.posts_count }}</td>       
                                     <td class="py-3 px-2">
                                         <div class="inline-flex items-center space-x-3">
-                                            <a href="#" title="Edit User" class="hover:text-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                            <a href="instagram.co" title="Edit User" class="hover:text-white">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232a4.5 4.5 0 00-6.364 0L3 11.5V21h9.5l5.868-5.868a4.5 4.5 0 000-6.364l-2.176-2.176z" />
                                                 </svg>
                                             </a>
-                                            <a href="#" title="Delete User" class="hover:text-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                            <a :href="`/delete-user/${user.id}`" title="Delete User" class="hover:text-white">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
                                             </a>
                                         </div>
@@ -134,13 +146,3 @@
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    props: {
-        userCount: Number,
-        postCount: Number,
-        recentUsers: Array,
-    },
-}
-</script>
